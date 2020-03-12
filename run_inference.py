@@ -77,7 +77,10 @@ def main():
 
     print('{} samples found'.format(len(img_pairs)))
     # create model
-    network_data = torch.load(args.pretrained)
+    if torch.cuda.is_available():
+        network_data = torch.load(Path(args.pretrained))
+    else:
+        network_data = torch.load(Path(args.pretrained), map_location=torch.device('cpu'))
     print("=> using pre-trained model '{}'".format(network_data['arch']))
     model = models.__dict__[network_data['arch']](network_data).to(device)
     model.eval()

@@ -1,2 +1,5 @@
 */_pycache__
 *.pyc
+*.tar
+*.xml
+*.iml
