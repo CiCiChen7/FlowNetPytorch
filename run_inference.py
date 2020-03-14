@@ -85,6 +85,7 @@ def main():
     model = models.__dict__[network_data['arch']](network_data).to(device)
     model.eval()
     cudnn.benchmark = True
+    print("load model success!")
 
     if 'div_flow' in network_data.keys():
         args.div_flow = network_data['div_flow']
@@ -94,6 +95,7 @@ def main():
         img1 = input_transform(imread(img1_file))
         img2 = input_transform(imread(img2_file))
         input_var = torch.cat([img1, img2]).unsqueeze(0)
+        print("read image success!")
 
         if args.bidirectional:
             # feed inverted pair along with normal pair
