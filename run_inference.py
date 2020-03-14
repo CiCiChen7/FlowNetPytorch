@@ -103,6 +103,7 @@ def main():
             input_var = torch.cat([input_var, inverted_input_var])
 
         input_var = input_var.to(device)
+        print("prepare to compute flow!")
         # compute output
         output = model(input_var)
         print("flow computing success!")
