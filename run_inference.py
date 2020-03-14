@@ -105,6 +105,7 @@ def main():
         input_var = input_var.to(device)
         # compute output
         output = model(input_var)
+        print("flow computing success!")
         if args.upsampling is not None:
             output = F.interpolate(output, size=img1.size()[-2:], mode=args.upsampling, align_corners=False)
         for suffix, flow_output in zip(['flow', 'inv_flow'], output):
