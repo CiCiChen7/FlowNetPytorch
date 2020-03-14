@@ -37,7 +37,7 @@ parser.add_argument('--upsampling', '-u', choices=['nearest', 'bilinear'], defau
                     'which is 4 times downsampled. If set, will output full resolution flow map, with selected upsampling')
 parser.add_argument('--bidirectional', action='store_true', help='if set, will output invert flow (from 1 to 0) along with regular flow')
 
-device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+device = torch.device("cpu")
 
 
 @torch.no_grad()
@@ -77,10 +77,7 @@ def main():
 
     print('{} samples found'.format(len(img_pairs)))
     # create model
-    if torch.cuda.is_available():
-        network_data = torch.load(Path(args.pretrained))
-    else:
-        network_data = torch.load(Path(args.pretrained), map_location=torch.device('cpu'))
+    network_data = torch.load(Path(args.pretrained), map_location=torch.device('cpu'))
     print("=> using pre-trained model '{}'".format(network_data['arch']))
     model = models.__dict__[network_data['arch']](network_data).to(device)
     model.eval()
